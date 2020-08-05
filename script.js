@@ -45,3 +45,18 @@ function draw() {
 	yrot += Math.sin((PI/2) * t) * 8;
 	t += 0.1;
 }
+
+
+
+function displayScores() {
+  fill("white");
+  textSize(20);
+  text("Score:",150,20);
+  text("Score2:",250,20);
+  text("Score3:",250,20);
+  text("Score3:",250,20);
+  text(score,150,40);
+  text(score2,250,40);
+  text(score3,250,40);
+  text(score4,250,40);
+}
