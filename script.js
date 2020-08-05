@@ -1,6 +1,6 @@
+var canvasWidth = 500, canvasHeight = 400;
 
- var canvasWidth = 500, canvasHeight = 400;
- var ball, 
+var ball, 
      ballSize    = 20;
      ball_xPos   = canvasWidth/2,
      ball_yPos   = canvasHeight/2,
@@ -10,13 +10,13 @@
 	   ball_bottom = ball_yPos + ballSize/2,
 	   ball_left   = ball_xPos - ballSize/2,
 	   ball_right  = ball_xPos + ballSize/2;
+  var player1Width = Width, playerLength = canvasHeight/6 
+    
 
 var score = 0;
 var score2= 0;
-var score3= 0;
-var score4= 0;
 
-var goal1Width   = 11,
+var goal1Width   = 6,
     goal1Height  = canvasHeight/6,
     goal1Vel     = 0;
     goal1_yPos   = canvasHeight / 2, 
@@ -26,7 +26,7 @@ var goal1Width   = 11,
 	  goal1_left   = goal1_xPos + goal1Width/2,
 	  goal1_right  = goal1_xPos - goal1Width/2;
 
-var goal2Width   = 11,
+var goal2Width   = 6,
     goal2Height  = canvasHeight/6,
     goal2Vel     = 0;
     goal2_yPos   = canvasHeight / 2,
@@ -49,28 +49,26 @@ function setup() {
    //background soccer field
   field= loadImage("https://th.bing.com/th/id/OIP.EjDqTUgUzAyYwbFAWLgEWgHaFH?pid=Api&rs=1");
 	createCanvas(canvasWidth, canvasHeight);
- 
+ // ball is in the center
   rectMode(CENTER);
-  ball = rect(ball_xPos, ball_yPos, ballSize, ballSize);
+  // ball is created and looks like a soccer ball 
+  ball = rect(ball_xPos, ball_yPos, ballSize, ballSize), ("http://www.soccerwizards.com/wp-content/uploads/2018/02/roll-ball.gif");
 }
 
 function draw() {
+  //soccer field background
 	background(field);
-  rect(player1_xPos, player1_yPos, player1Width, player1Height);
- rect(player2_xPos, player2_yPos, player2Width, player2Height);
+  //goalie1
+  rect(goal1_xPos, goal1_yPos, goal1Width, goal1Height);
+  //goalie2
+ rect(goal2_xPos, goal2_yPos, goal2Width, goal2Height);
+
 	displayScores() ;
 	// this makes the ball appear
  rect(ball_xPos, ball_yPos, ballSize, ballSize);
 }
 
-function displayScores() {
-  fill("black");
-  textSize(20);
-  text("Team1:",150,20);
-  text("Team2:",255,20);
-  text(score,170,40);
-  text(score2,270,40);
-}
+
 
 function player() {
   fill(0);
@@ -86,15 +84,44 @@ function computer(){
 
 
 function whoHitTheBall(){
+//checks if a player hit the ball
 
 }
 
 function playersMove(){
-  // player 1 can move by pressing keys 1-up, 2-down
+  //player 1 can move by pressing keys w-up, s-down, a-left, d-right
 
-  //player 2 can move by pressing keys 9-up, 0-down
+  //player 2 can move by pressing arrow keys
+}
 
-  //player 3 can move by pressing keys w-up, s-down, a-left, d-right
-
-  //player 4 can move by pressing arrow keys
+function goalWasTouched(){
+  //checks if ball hit goal1 adds point to team 2
+  if((ball_bottom >= goal1_top) && (ball_top <= goal1_bottom)){
+		if(ball_left <=  goal1_right){
+    		ball_xVel = -ball_xVel;
+        score = score + 1; 
+      } 
+  }
+  //checks if ball hit goal2 adds point to team 1
+  	if((ball_bottom >= goal2_top) && (ball_top <= goal2_bottom)){
+		if(ball_right >=  goal2_left){
+    		ball_xVel = -ball_xVel;
+	     score2 = score2 + 1;
+      }
+    }  
+}
+function displayScores() {
+  fill("black");
+  textSize(20);
+  // name of players teams and scores positioned/displayed
+  text("Team1:",150,20);
+  text("Team2:",255,20);
+  text(score,170,40);
+  text(score2,270,40);
+}
+function resetScore(){
+  if(score == 10 || score2 == 10){
+    score  =+ 0;
+    score2 =+ 0;
+  }
 }
