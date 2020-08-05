@@ -1,3 +1,4 @@
+
  var canvasWidth = 500, canvasHeight = 400;
  var ball, 
      ballSize    = 20;
@@ -55,24 +56,20 @@ function setup() {
 
 function draw() {
 	background(field);
+  rect(player1_xPos, player1_yPos, player1Width, player1Height);
+ rect(player2_xPos, player2_yPos, player2Width, player2Height);
 	displayScores() ;
 	// this makes the ball appear
  rect(ball_xPos, ball_yPos, ballSize, ballSize);
 }
 
-
-
 function displayScores() {
   fill("black");
   textSize(20);
-  text("Score:",150,20);
-  text("Score2:",250,20);
-  text("Score3:",250,20);
-  text("Score3:",250,20);
-  text(score,150,40);
-  text(score2,250,40);
-  text(score3,250,40);
-  text(score4,250,40);
+  text("Team1:",150,20);
+  text("Team2:",255,20);
+  text(score,170,40);
+  text(score2,270,40);
 }
 
 function player() {
@@ -90,4 +87,14 @@ function computer(){
 
 function whoHitTheBall(){
 
+}
+
+function playersMove(){
+  // player 1 can move by pressing keys 1-up, 2-down
+
+  //player 2 can move by pressing keys 9-up, 0-down
+
+  //player 3 can move by pressing keys w-up, s-down, a-left, d-right
+
+  //player 4 can move by pressing arrow keys
 }
