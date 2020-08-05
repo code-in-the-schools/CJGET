@@ -16,33 +16,33 @@ var score2= 0;
 var score3= 0;
 var score4= 0;
 
-var player1Width   = 11,
-    player1Height  = canvasHeight/6,
-    player1Vel     = 7;
-    player1_yPos   = canvasHeight / 2, 
-    player1_xPos   =  ballSize,
-    player1_top    = player1_yPos - player1Height/2,
-	  player1_bottom = player1_yPos + player1Height/2,
-	  player1_left   = player1_xPos + player1Width/2,
-	  player1_right  = player1_xPos - player1Width/2;
+var goal1Width   = 11,
+    goal1Height  = canvasHeight/6,
+    goal1Vel     = 0;
+    goal1_yPos   = canvasHeight / 2, 
+    goal1_xPos   =  ballSize,
+    goal1_top    = goal1_yPos - goal1Height/2,
+	  goal1_bottom = goal1_yPos + goal1Height/2,
+	  goal1_left   = goal1_xPos + goal1Width/2,
+	  goal1_right  = goal1_xPos - goal1Width/2;
+
+var goal2Width   = 11,
+    goal2Height  = canvasHeight/6,
+    goal2Vel     = 0;
+    goal2_yPos   = canvasHeight / 2,
+    goal2_xPos   = canvasWidth - ballSize,
+    goal2_top    = goal2_yPos - goal2Height/2,
+	  goal2_bottom = goal2_yPos + goal2Height/2,
+	  goal2_left   = goal2_xPos + goal2Width/2,
+	  goal2_right  = goal2_xPos - goal2Width/2; 
+
+var player1Width = 11,
+    player1Height = canvasWidth/6,
+    player1Vel = 7;
 
 var player2Width = 11,
-    player2Height = canvasHeight/6,
+    player2Height = canvasWidth/6,
     player2Vel = 7;
-    player2_yPos = canvasHeight / 2,
-    player2_xPos = canvasWidth - ballSize,
-    player2_top    = player2_yPos - player2Height/2,
-	  player2_bottom = player2_yPos + player2Height/2,
-	  player2_left   = player2_xPos + player2Width/2,
-	  player2_right  = player2_xPos - player2Width/2; 
-
-var player3Width = 11,
-    player3Height = canvasWidth/6,
-    player3Vel = 7;
-
-var player4Width = 11,
-    player4Height = canvasWidth/6,
-    player4Vel = 7;
     
 
 function setup() {
@@ -75,8 +75,8 @@ function displayScores() {
 function player() {
   fill(0);
   noStroke();
-  rect(playerX, playerY, paddleWidth, 10);
-  playerX = mouseX - paddleWidth / 2
+  rect(playerX, playerY, player1Width, 10);
+  playerX = mouseX - player1Width / 2
   playerY = mouseY
 }
 
