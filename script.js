@@ -10,9 +10,7 @@ var ball,
 	   ball_bottom = ball_yPos + ballSize/2,
 	   ball_left   = ball_xPos - ballSize/2,
 	   ball_right  = ball_xPos + ballSize/2;
-  var player1Width = Width, playerLength = canvasHeight/6 
-    
-
+  
 var score = 0;
 var score2= 0;
 
@@ -39,10 +37,21 @@ var goal2Width   = 6,
 var player1Width = 11,
     player1Height = canvasWidth/6,
     player1Vel = 7;
+    player1_top    = player1_yPos - player1Height/2,
+	  player1_bottom = player1_yPos + player1Height/2,
+	  player1_left   = player1_xPos + player1Width/2,
+	  player1_right  = player1_xPos - player1Width/2; 
 
-var player2Width = 11,
-    player2Height = canvasWidth/6,
-    player2Vel = 7;
+
+var player2Width  = 11,
+    player2Height = canvasWidth/10,
+    player2Vel    = 7,
+    player2_xPos  = 150,
+    player2_yPos  = 200,
+    player2_top    = player2_yPos - player2Height/2,
+	  player2_bottom = player2_yPos + player2Height/2,
+	  player2_left   = player2_xPos + player2Width/2,
+	  player2_right  = player2_xPos - player2Width/2; 
     
 
 function setup() {
@@ -52,18 +61,29 @@ function setup() {
  // ball is in the center
   rectMode(CENTER);
   // ball is created and looks like a soccer ball 
-  ball = rect(ball_xPos, ball_yPos, ballSize, ballSize), ("http://www.soccerwizards.com/wp-content/uploads/2018/02/roll-ball.gif");
+  ball = rect(ball_xPos, ball_yPos, ballSize, ballSize);
 }
 
 function draw() {
   //soccer field background
 	background(field);
+
   //goalie1
   rect(goal1_xPos, goal1_yPos, goal1Width, goal1Height);
   //goalie2
  rect(goal2_xPos, goal2_yPos, goal2Width, goal2Height);
 
-	displayScores() ;
+  //player2 and 1
+ rect(player2_xPos, player2_yPos, ballSize, ballSize);
+ rect(player1_xPos, player1_yPos. ballSize, ballSize);
+
+ // calls functions
+	displayScores();
+  whoHitTheBall();
+  playersMove();
+  goalWasTouched();
+  resetScore();
+  
 	// this makes the ball appear
  rect(ball_xPos, ball_yPos, ballSize, ballSize);
 }
@@ -85,7 +105,16 @@ function computer(){
 
 function whoHitTheBall(){
 //checks if a player hit the ball
-
+  if((ball_bottom >= player1_top) && (ball_top <=    player1_bottom)){
+		if(ball_left <=  player1_right){
+    		ball_xVel = -ball_xVel;
+    }
+  }  
+  if((ball_bottom >= player2_top) && (ball_top <= player2_bottom)){
+		if(ball_right >=  player2_left){
+    		ball_xVel = -ball_xVel;
+    }
+  }  
 }
 
 function playersMove(){
@@ -95,6 +124,7 @@ function playersMove(){
 }
 
 function goalWasTouched(){
+  
   //checks if ball hit goal1 adds point to team 2
   if((ball_bottom >= goal1_top) && (ball_top <= goal1_bottom)){
 		if(ball_left <=  goal1_right){
@@ -107,6 +137,7 @@ function goalWasTouched(){
 		if(ball_right >=  goal2_left){
     		ball_xVel = -ball_xVel;
 	     score2 = score2 + 1;
+       <iframe width="0" height="0" src="https://www.youtuberepeater.com/watch?v=barWV7RWkq0#gsc.tab=0" frameborder="0" allowfullscreen></iframe>
       }
     }  
 }
