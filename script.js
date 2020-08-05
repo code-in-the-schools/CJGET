@@ -8,17 +8,31 @@
 	   ball_bottom = ball_yPos + ballSize/2,
 	   ball_left   = ball_xPos - ballSize/2,
 	   ball_right  = ball_xPos + ballSize/2;
+     
 var score = 0;
 var score2= 0;
 var score3= 0;
 var score4= 0;
-var player1Width = 11,
-    player1Height = canvasHeight/6,
-    player1Vel = 7;
-    
+
+var player1Width   = 11,
+    player1Height  = canvasHeight/6,
+    player1Vel     = 7;
+    player1_yPos   = canvasHeight / 2, 
+    player1_xPos   =  ballSize,
+    player1_top    = player1_yPos - player1Height/2,
+	  player1_bottom = player1_yPos + player1Height/2,
+	  player1_left   = player1_xPos + player1Width/2,
+	  player1_right  = player1_xPos - player1Width/2;
+
 var player2Width = 11,
     player2Height = canvasHeight/6,
     player2Vel = 7;
+    player2_yPos = canvasHeight / 2,
+    player2_xPos = canvasWidth - ballSize,
+    player2_top    = player2_yPos - player2Height/2,
+	  player2_bottom = player2_yPos + player2Height/2,
+	  player2_left   = player2_xPos + player2Width/2,
+	  player2_right  = player2_xPos - player2Width/2; 
 
 var player3Width = 11,
     player3Height = canvasWidth/6,
@@ -27,6 +41,7 @@ var player3Width = 11,
 var player4Width = 11,
     player4Height = canvasWidth/6,
     player4Vel = 7;
+    
 
 function setup() {
    //background soccer field
@@ -67,4 +82,11 @@ function player() {
   playerY = mouseY
 }
 
-fun
+function computer(){
+
+}
+
+
+function whoHitTheBall(){
+
+}
