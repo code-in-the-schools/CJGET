@@ -58,10 +58,12 @@ function setup() {
    //background soccer field
   field= loadImage("https://th.bing.com/th/id/OIP.EjDqTUgUzAyYwbFAWLgEWgHaFH?pid=Api&rs=1");
 	createCanvas(canvasWidth, canvasHeight);
+  // soccer ball image
+  soccerBall= loadImage ("http://www.soccerwizards.com/wp-content/uploads/2018/02/roll-ball.gif");
  // ball is in the center
   rectMode(CENTER);
   // ball is created and looks like a soccer ball 
-  ball = rect(ball_xPos, ball_yPos, ballSize, ballSize);
+  ball = (soccerBall, ball_xPos, ball_yPos, ballSize, ballSize);
 }
 
 function draw() {
@@ -69,7 +71,7 @@ function draw() {
 	background(field);
 
   //goalie1
-  rect(goal1_xPos, goal1_yPos, goal1Width, goal1Height);
+ rect(goal1_xPos, goal1_yPos, goal1Width, goal1Height);
   //goalie2
  rect(goal2_xPos, goal2_yPos, goal2Width, goal2Height);
 
@@ -85,7 +87,7 @@ function draw() {
   resetScore();
   
 	// this makes the ball appear
- rect(ball_xPos, ball_yPos, ballSize, ballSize);
+ rect(ball_xPos, ball_yPos, ballSize, ballSize, soccerBall);
 }
 
 
