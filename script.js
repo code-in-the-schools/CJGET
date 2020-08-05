@@ -1,5 +1,6 @@
- var canvasWidth = 400, canvasHeight = 400;
- var ballSize    = 20;
+ var canvasWidth = 500, canvasHeight = 400;
+ var ball, 
+     ballSize    = 20;
      ball_xPos   = canvasWidth/2,
      ball_yPos   = canvasHeight/2,
 	   ball_xVel   = 1,
@@ -8,7 +9,7 @@
 	   ball_bottom = ball_yPos + ballSize/2,
 	   ball_left   = ball_xPos - ballSize/2,
 	   ball_right  = ball_xPos + ballSize/2;
-     
+
 var score = 0;
 var score2= 0;
 var score3= 0;
@@ -45,18 +46,18 @@ var player4Width = 11,
 
 function setup() {
    //background soccer field
-  field=("https://th.bing.com/th/id/OIP.EjDqTUgUzAyYwbFAWLgEWgHaFH?pid=Api&rs=1");
+  field= loadImage("https://th.bing.com/th/id/OIP.EjDqTUgUzAyYwbFAWLgEWgHaFH?pid=Api&rs=1");
 	createCanvas(canvasWidth, canvasHeight);
  
   rectMode(CENTER);
-  myBall = rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
+  ball = rect(ball_xPos, ball_yPos, ballSize, ballSize);
 }
 
 function draw() {
 	background(field);
 	displayScores() ;
 	// this makes the ball appear
- rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
+ rect(ball_xPos, ball_yPos, ballSize, ballSize);
 }
 
 
