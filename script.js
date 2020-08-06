@@ -1,6 +1,6 @@
 var canvasWidth = 500, canvasHeight = 400;
 
-var  ballSize    = 20,
+var  ballSize    = 10,
      ball_xPos   = canvasWidth/2,
      ball_yPos   = canvasHeight/2,
 	   ball_xVel   = 1,
@@ -17,7 +17,7 @@ var goal1Width   = 6,
     goal1Height  = canvasHeight/6,
     goal1Vel     = 0;
     goal1_yPos   = canvasHeight / 2, 
-    goal1_xPos   =  ballSize,
+    goal1_xPos   = ballSize + 10,
     goal1_top    = goal1_yPos - goal1Height/2,
 	  goal1_bottom = goal1_yPos + goal1Height/2,
 	  goal1_left   = goal1_xPos + goal1Width/2,
@@ -27,15 +27,15 @@ var goal2Width   = 6,
     goal2Height  = canvasHeight/6,
     goal2Vel     = 0;
     goal2_yPos   = canvasHeight / 2,
-    goal2_xPos   = canvasWidth - ballSize,
+    goal2_xPos   = canvasWidth - ballSize - 10,
     goal2_top    = goal2_yPos - goal2Height/2,
 	  goal2_bottom = goal2_yPos + goal2Height/2,
 	  goal2_left   = goal2_xPos + goal2Width/2,
 	  goal2_right  = goal2_xPos - goal2Width/2; 
 
-var player1Width = 11,
-    player1Height = canvasWidth/6,
-    player1Vel = 7;
+var player1Width = 8,
+    player1Height = canvasWidth/25,
+    player1Vel = 7,
     player1_xPos  = 150,
     player1_yPos  = 200,
     player1_top    = player1_yPos - player1Height/2,
@@ -44,10 +44,10 @@ var player1Width = 11,
 	  player1_right  = player1_xPos - player1Width/2; 
     player1Color   = r=(255),g=(0), b=(250);
 
-var player2Width  = 11,
-    player2Height = canvasWidth/10,
+var player2Width  = 8,
+    player2Height = canvasWidth/25,
     player2Vel    = 7,
-    player2_xPos  = 250,
+    player2_xPos  = 350,
     player2_yPos  = 200,
     player2_top    = player2_yPos - player2Height/2,
 	  player2_bottom = player2_yPos + player2Height/2,
@@ -63,11 +63,11 @@ function setup() {
   field= loadImage("https://th.bing.com/th/id/OIP.EjDqTUgUzAyYwbFAWLgEWgHaFH?pid=Api&rs=1");
 	createCanvas(canvasWidth, canvasHeight);
   // soccer ball image
-  ball= loadImage ("http://www.soccerwizards.com/wp-content/uploads/2018/02/roll-ball.gif");
+  soccer= loadImage ("http://1.bp.blogspot.com/-uKLkCXuaSdM/U4k3WwXSrsI/AAAAAAAAA_I/u3pUrmxx7f8/s1600/SoccerBallAnimation_Transparent.gif");
  // ball is in the center
   rectMode(CENTER);
   // ball is created and looks like a soccer ball 
-  //ball = ( ball_xPos, ball_yPos, ballSize, ballSize);
+  ball= (soccer, ball_xPos, ball_yPos, ballSize, ballSize);
    // Load the cheering sound file.
   //cheering = loadSound( src="https://www.youtuberepeater.com/watch?v=barWV7RWkq0#gsc.tab=0" frameborder="0" allowfullscreen);
 }
@@ -82,8 +82,8 @@ function draw() {
  rect(goal2_xPos, goal2_yPos, goal2Width, goal2Height);
 
   //player2 and 1
- rect(player2_xPos, player2_yPos, ballSize, ballSize);
- rect(player1_xPos, player1_yPos, ballSize, ballSize);
+ rect(player2_xPos, player2_yPos, player2Width, player2Height);
+ rect(player1_xPos, player1_yPos, player1Width, player1Height);
 
  // calls functions
 	displayScores();
@@ -94,7 +94,7 @@ function draw() {
   ballMoves();
 
 	// this makes the ball appear
- ball=(ball_xPos, ball_yPos, ballSize, ballSize);
+ soccer=circle(ball_xPos, ball_yPos, ballSize, ballSize);
 }
 
 function ballMoves(){
