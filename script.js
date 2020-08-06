@@ -1,6 +1,6 @@
 var canvasWidth = 500, canvasHeight = 400;
 
-var ball, 
+var  ball= loadImage ("http://www.soccerwizards.com/wp-content/uploads/2018/02/roll-ball.gif");
      ballSize    = 20;
      ball_xPos   = canvasWidth/2,
      ball_yPos   = canvasHeight/2,
@@ -37,33 +37,40 @@ var goal2Width   = 6,
 var player1Width = 11,
     player1Height = canvasWidth/6,
     player1Vel = 7;
+    player1_xPos  = 150,
+    player1_yPos  = 200,
     player1_top    = player1_yPos - player1Height/2,
 	  player1_bottom = player1_yPos + player1Height/2,
 	  player1_left   = player1_xPos + player1Width/2,
 	  player1_right  = player1_xPos - player1Width/2; 
-
+    player1Color   = r=(0),g=(0), b=(250);
 
 var player2Width  = 11,
     player2Height = canvasWidth/10,
     player2Vel    = 7,
-    player2_xPos  = 150,
+    player2_xPos  = 250,
     player2_yPos  = 200,
     player2_top    = player2_yPos - player2Height/2,
 	  player2_bottom = player2_yPos + player2Height/2,
 	  player2_left   = player2_xPos + player2Width/2,
-	  player2_right  = player2_xPos - player2Width/2; 
-    
+	  player2_right  = player2_xPos - player2Width/2,
+    player2Color   = r=(255), g=(0), b=(0); 
+
+// A sound file object
+let cheering;    
 
 function setup() {
    //background soccer field
   field= loadImage("https://th.bing.com/th/id/OIP.EjDqTUgUzAyYwbFAWLgEWgHaFH?pid=Api&rs=1");
 	createCanvas(canvasWidth, canvasHeight);
   // soccer ball image
-  soccerBall= loadImage ("http://www.soccerwizards.com/wp-content/uploads/2018/02/roll-ball.gif");
+  //ball= loadImage ("http://www.soccerwizards.com/wp-content/uploads/2018/02/roll-ball.gif");
  // ball is in the center
   rectMode(CENTER);
   // ball is created and looks like a soccer ball 
-  ball = (soccerBall, ball_xPos, ball_yPos, ballSize, ballSize);
+  ball = ( ball_xPos, ball_yPos, ballSize, ballSize);
+   // Load the cheering sound file.
+  cheering = loadSound( src="https://www.youtuberepeater.com/watch?v=barWV7RWkq0#gsc.tab=0" frameborder="0" allowfullscreen);
 }
 
 function draw() {
@@ -85,25 +92,19 @@ function draw() {
   playersMove();
   goalWasTouched();
   resetScore();
-  
+  ballMoves();
+
 	// this makes the ball appear
- rect(ball_xPos, ball_yPos, ballSize, ballSize, soccerBall);
+ ball(ball_xPos, ball_yPos, ballSize, ballSize);
 }
 
-
-
-function player() {
-  fill(0);
-  noStroke();
-  rect(playerX, playerY, player1Width, 10);
-  playerX = mouseX - player1Width / 2
-  playerY = mouseY
+function ballMoves(){
+  if ( (ball_right > canvasWidth) || (ball_left < 0) ) {
+    ball_xVel = -ball_xVel;
+  }else if ( (ball_bottom > canvasHeight) || (ball_top < 0) ) {
+		ball_yVel = -ball_yVel;
+	}
 }
-
-function computer(){
-
-}
-
 
 function whoHitTheBall(){
 //checks if a player hit the ball
@@ -120,29 +121,51 @@ function whoHitTheBall(){
 }
 
 function playersMove(){
-  //player 1 can move by pressing keys w-up, s-down, a-left, d-right
-
-  //player 2 can move by pressing arrow keys
+  if (keyIsDown(RIGHT)){
+    player1_xPos = player1_xPos + 5;
+    }else if (keyIsDown(LEFT)){
+    player1_xPos = player1_xPos - 5;
+      }
+if (keyIsDown(DOWN)){
+    player1_yPos = player1_yPos + 5;
+    }else if (keyIsDown(UP)){
+    player1_yPos = player1_yPos - 5;
+     }
+if (keyIsDown(68)){
+    player2_xPos = player2_xPos + 5;
+  }else if (keyIsDown(65)){
+    player2_xPos = player2_xPos - 5;
+   }
+if (keyIsDown(83)){
+    player2_yPos = player2_yPos + 5;
+  }else if (keyIsDown(87)){
+    player2_yPos = player2_yPos - 5;
+   }
 }
 
 function goalWasTouched(){
-  
   //checks if ball hit goal1 adds point to team 2
   if((ball_bottom >= goal1_top) && (ball_top <= goal1_bottom)){
 		if(ball_left <=  goal1_right){
     		ball_xVel = -ball_xVel;
         score = score + 1; 
-      } 
+        cheering.play();
+      } else if (score =+ 0){
+        cheering.stop();
+      }
   }
   //checks if ball hit goal2 adds point to team 1
   	if((ball_bottom >= goal2_top) && (ball_top <= goal2_bottom)){
 		if(ball_right >=  goal2_left){
     		ball_xVel = -ball_xVel;
 	     score2 = score2 + 1;
-       <iframe width="0" height="0" src="https://www.youtuberepeater.com/watch?v=barWV7RWkq0#gsc.tab=0" frameborder="0" allowfullscreen></iframe>
+       cheering.play();
+      }else if (score2 =+ 0){
+        cheering.stop();
       }
     }  
 }
+
 function displayScores() {
   fill("black");
   textSize(20);
@@ -158,3 +181,9 @@ function resetScore(){
     score2 =+ 0;
   }
 }
+ 
+function playerColor(){
+  
+// gary
+} 
+var r = 250, g = 0, b = 0;
