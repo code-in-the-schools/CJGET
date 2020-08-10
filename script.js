@@ -65,6 +65,8 @@ let gravity = 0.03;
 let friction = -0.9;
 let bubbles = [];
 
+// timer
+let timer =200;
 
 function setup() {
    //background soccer field
@@ -116,8 +118,9 @@ function draw() {
   player1Color();
   player2Color();
   loopObstacles();
+  stopObstacles();
+  endGame();
 
-  
 	// this makes the ball appear
   soccer;
  //rect(ball_xPos, ball_yPos, ballSize, ballSize);
@@ -220,17 +223,8 @@ function player2Color(){
   player2rgb= r=(0), g=(0), b=(250);
 }
 
-// by Gary
-// function pause(){
-  
-
-
 function loopObstacles(){
-  if (bubbles.y >= 393) {
-    bubbles.y = 0;
-    bubbles.x = randomNumber(15, 300);
- }
-  if((score == 7) || (score2 == 7)){
+  if((score == 5) || (score2 == 5)){
     var bubbles = 20;
      if (player1.isTouching(bubbles)){
        score = score - 1;
@@ -238,17 +232,31 @@ function loopObstacles(){
        score2= score2 - 1;
      }
   }
+   if (bubbles.y >= 393) {
+    bubbles.y = 0;
+    bubbles.x = randomNumber(15, 300);
+ }
 }
 
-let timer = 60
-if (frameCount % 60 == 0 && timer > 0){
-  
+function stopObstacles(){
+  if((score == 7) || (score2 == 7)){
+    bubbles.y = 0;
+    bubbles.x = 0;
+  }
+  if ((score <= -1) || (score2 <= -1)){
+     bubbles.y = 0;
+     bubbles.x = 0;
+  }
 }
-if timer = 0 { 
-  text(¨ GAME OVER ¨, width/2 , hight*0.7)
+
+// i think you shoul put this in the set up (line 68)
+//let timer =200;
+if (frameCount % 60 == 0 && timer > 0){}
+
+function endGame(){
+if (timer = 0 ){ 
+  text("GAME OVER ", width/2 , hight*0.7)
+ }
 }
-
-
-
 
 
