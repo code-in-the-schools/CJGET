@@ -58,16 +58,36 @@ var player2Width  = 8,
 // A sound file object
 let cheering;    
 
+// bubbles obstacles
+let numBubbles = 13;
+let jump = 0.05;
+let gravity = 0.03;
+let friction = -0.9;
+let bubbles = [];
+
+
 function setup() {
    //background soccer field
-  field= loadImage("https://th.bing.com/th/id/OIP.EjDqTUgUzAyYwbFAWLgEWgHaFH?pid=Api&rs=1");
+  field = loadImage("https://th.bing.com/th/id/OIP.EjDqTUgUzAyYwbFAWLgEWgHaFH?pid=Api&rs=1");
 	createCanvas(canvasWidth, canvasHeight);
   // soccer ball image
-  soccer= loadImage ("http://1.bp.blogspot.com/-uKLkCXuaSdM/U4k3WwXSrsI/AAAAAAAAA_I/u3pUrmxx7f8/s1600/SoccerBallAnimation_Transparent.gif");
+  soccer = loadImage ("http://www.soccerwizards.com/wp-content/uploads/2018/02/roll-ball.gif", ball_xPos, ball_yPos, ballSize, ballSize,);
+  player1 = loadImage(soc.png)
+  player2 = loadImage(soc.png)
  // ball is in the center
   rectMode(CENTER);
+
+  //bubbles fall loop
+    for (let i = 0; i < numBubbles; i++) {
+    bubles[i] = new Bubble(
+      random(width),
+      random(height),
+      random(30, 70),
+      i,
+      bubbles
+    );
   // ball is created and looks like a soccer ball 
-  ball= (soccer, ball_xPos, ball_yPos, ballSize, ballSize);
+  //ball= (soccer, ball_xPos, ball_yPos, ballSize, ballSize);
    // Load the cheering sound file.
   //cheering = loadSound( src="https://www.youtuberepeater.com/watch?v=barWV7RWkq0#gsc.tab=0" frameborder="0" allowfullscreen);
 }
@@ -92,15 +112,24 @@ function draw() {
   goalWasTouched();
   resetScore();
   ballMoves();
+  soccer;
+  player1Color();
+  player2Color();
+  loopObstacles();
 
+  
 	// this makes the ball appear
- soccer=circle(ball_xPos, ball_yPos, ballSize, ballSize);
+  soccer;
+ //rect(ball_xPos, ball_yPos, ballSize, ballSize);
 }
 
 function ballMoves(){
   if ( (ball_right > canvasWidth) || (ball_left < 0) ) {
     ball_xVel = -ball_xVel;
-  }else if ( (ball_bottom > canvasHeight) || (ball_top < 0) ) {
+    ball_xPos = canvasHeight/2;
+    ball_yPos = canvasHeight/2;
+  }
+  if ( (ball_bottom > canvasHeight) || (ball_top < 0) ) {
 		ball_yVel = -ball_yVel;
 	}
 }
@@ -110,12 +139,14 @@ function whoHitTheBall(){
   if((ball_bottom >= player1_top) && (ball_top <=    player1_bottom)){
 		if(ball_left <=  player1_right){
     		ball_xVel = -ball_xVel;
-    }
+    }else if (ball_left <=  player1_left){
+    		ball_xVel = -ball_xVel;
   }  
   if((ball_bottom >= player2_top) && (ball_top <= player2_bottom)){
 		if(ball_right >=  player2_left){
     		ball_xVel = -ball_xVel;
-    }
+    }else if (ball_right >=  player2_right){
+    		ball_xVel = -ball_xVel;
   }  
 }
 
@@ -174,6 +205,7 @@ function displayScores() {
   text(score,170,40);
   text(score2,270,40);
 }
+
 function resetScore(){
   if(score == 10 || score2 == 10){
     score  =+ 0;
@@ -181,8 +213,42 @@ function resetScore(){
   }
 }
  
-function playerColor(){
-  
-// gary
+function player1Color(){
+  player1rgb= r = (250), g = (0), b = (0);
 } 
-var r = 250, g = 0, b = 0;
+function player2Color(){
+  player2rgb= r=(0), g=(0), b=(250);
+}
+
+// by Gary
+// function pause(){
+  
+
+
+function loopObstacles(){
+  if (bubbles.y >= 393) {
+    bubbles.y = 0;
+    bubbles.x = randomNumber(15, 300);
+ }
+  if((score == 7) || (score2 == 7)){
+    var bubbles = 20;
+     if (player1.isTouching(bubbles)){
+       score = score - 1;
+       } else if (player2.isTouching(bubbles)){
+       score2= score2 - 1;
+     }
+  }
+}
+
+let timer = 60
+if (frameCount % 60 == 0 && timer > 0){
+  
+}
+if timer = 0 { 
+  text(¨ GAME OVER ¨, width/2 , hight*0.7)
+}
+
+
+
+
+
