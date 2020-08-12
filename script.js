@@ -42,7 +42,7 @@ var player1Width = 8,
 	  player1_bottom = player1_yPos + player1Height/2,
 	  player1_left   = player1_xPos + player1Width/2,
 	  player1_right  = player1_xPos - player1Width/2; 
-    player1Color   = r=(255),g=(0), b=(250);
+
 
 var player2Width  = 8,
     player2Height = canvasWidth/25,
@@ -52,9 +52,12 @@ var player2Width  = 8,
     player2_top    = player2_yPos - player2Height/2,
 	  player2_bottom = player2_yPos + player2Height/2,
 	  player2_left   = player2_xPos + player2Width/2,
-	  player2_right  = player2_xPos - player2Width/2,
-    player2Color   = r=(255), g=(0), b=(0); 
-
+	  player2_right  = player2_xPos - player2Width/2;
+    
+var r = 0, g = 0, b = 0;
+var play_button,
+    play_button_Pos= (canvasHeight/2, canvasWidth/2),
+    play_button_mouseClicked = displayImages();
 // A sound file object
 let cheering;    
 
@@ -73,21 +76,26 @@ function setup() {
   field = loadImage("https://th.bing.com/th/id/OIP.EjDqTUgUzAyYwbFAWLgEWgHaFH?pid=Api&rs=1");
 	createCanvas(canvasWidth, canvasHeight);
   // soccer ball image
-  soccer = loadImage ("http://www.soccerwizards.com/wp-content/uploads/2018/02/roll-ball.gif", ball_xPos, ball_yPos, ballSize, ballSize,);
-  player1 = loadImage(soc.png)
-  player2 = loadImage(soc.png)
+  soccer = loadImage ("roll-ball.gif", ball_xPos, ball_yPos, ballSize, ballSize,);
+  player1 = loadImage("soc.png");
+  player2 = loadImage("soc.png");
  // ball is in the center
   rectMode(CENTER);
 
   //bubbles fall loop
     for (let i = 0; i < numBubbles; i++) {
-    bubles[i] = new Bubble(
-      random(width),
-      random(height),
-      random(30, 70),
-      i,
-      bubbles
-    );
+    bubbles[i] = {
+		width: random(10),
+    	height: random(100)
+    	};
+    }
+
+ // Create the start button 
+    //play_button = createButton("play"); 
+     
+    
+
+  if (frameCount % 60 == 0 && timer > 0){}
   // ball is created and looks like a soccer ball 
   //ball= (soccer, ball_xPos, ball_yPos, ballSize, ballSize);
    // Load the cheering sound file.
@@ -104,8 +112,8 @@ function draw() {
  rect(goal2_xPos, goal2_yPos, goal2Width, goal2Height);
 
   //player2 and 1
- rect(player2_xPos, player2_yPos, player2Width, player2Height);
- rect(player1_xPos, player1_yPos, player1Width, player1Height);
+ rect(player2_xPos, player2_yPos, player2Width, player2Height, player2);
+ rect(player1_xPos, player1_yPos, player1Width, player1Height, player1);
 
  // calls functions
 	displayScores();
@@ -114,16 +122,29 @@ function draw() {
   goalWasTouched();
   resetScore();
   ballMoves();
-  soccer;
+  //soccer;
   player1Color();
   player2Color();
   loopObstacles();
   stopObstacles();
   endGame();
-
+ player1;
+ player2;
+ displayImages();
 	// this makes the ball appear
-  soccer;
+  //myFunction();
  //rect(ball_xPos, ball_yPos, ballSize, ballSize);
+}
+
+function displayImages() {
+  var ballgif = document.getElementById("myImg").src;
+  document.getElementById("myImg").innerHTML = ballgif;
+
+  var shilluette1 = document.getElementById("myp1").src;
+  document.getElementById("myp1").innerHTML = shilluette1;
+
+  var shilluette2 = document.getElementById("myp2").src;
+  document.getElementById("myp2").innerHTML = shilluette2;
 }
 
 function ballMoves(){
@@ -144,13 +165,15 @@ function whoHitTheBall(){
     		ball_xVel = -ball_xVel;
     }else if (ball_left <=  player1_left){
     		ball_xVel = -ball_xVel;
-  }  
+    }  
+  }
   if((ball_bottom >= player2_top) && (ball_top <= player2_bottom)){
 		if(ball_right >=  player2_left){
     		ball_xVel = -ball_xVel;
     }else if (ball_right >=  player2_right){
     		ball_xVel = -ball_xVel;
   }  
+}
 }
 
 function playersMove(){
@@ -217,46 +240,45 @@ function resetScore(){
 }
  
 function player1Color(){
-  player1rgb= r = (250), g = (0), b = (0);
+ r = (255);
+ g = (0);
+ b = (0);
 } 
 function player2Color(){
-  player2rgb= r=(0), g=(0), b=(250);
+ r = (0);
+ g = (0);
+ b = (255);
 }
+
 
 function loopObstacles(){
   if((score == 5) || (score2 == 5)){
-    var bubbles = 20;
+    var bubbles = 20, bubbles_xPos = canvasWidth , bubbles_yPos= canvasHeight;
      if (player1.isTouching(bubbles)){
        score = score - 1;
        } else if (player2.isTouching(bubbles)){
        score2= score2 - 1;
      }
   }
-   if (bubbles.y >= 393) {
-    bubbles.y = 0;
-    bubbles.x = randomNumber(15, 300);
+   if (bubbles_yPos >= canvasHeight) {
+    bubbles_yPos = 0;
+    bubbles_xPos = randomNumber(15, 300);
  }
 }
 
 function stopObstacles(){
   if((score == 7) || (score2 == 7)){
-    bubbles.y = 0;
-    bubbles.x = 0;
+    bubbles_yPos = 0;
+    bubbles_xPos = 0;
   }
   if ((score <= -1) || (score2 <= -1)){
-     bubbles.y = 0;
-     bubbles.x = 0;
+     bubbles_yPos = 0;
+     bubbles_xPos = 0;
   }
 }
-
-// i think you shoul put this in the set up (line 68)
-//let timer =200;
-if (frameCount % 60 == 0 && timer > 0){}
 
 function endGame(){
 if (timer = 0 ){ 
   text("GAME OVER ", width/2 , hight*0.7)
  }
 }
-
-
