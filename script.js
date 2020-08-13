@@ -111,9 +111,10 @@ function draw() {
   //goalie2
  rect(goal2_xPos, goal2_yPos, goal2Width, goal2Height);
 
-  //player2 and 1
- rect(player2_xPos, player2_yPos, player2Width, player2Height, player2);
- rect(player1_xPos, player1_yPos, player1Width, player1Height, player1);
+  //player2 
+ player2 = (player2_xPos, player2_yPos, player2Width, player2Height, player2);
+ //player 1
+ player1 = (player1_xPos, player1_yPos, player1Width, player1Height, player1);
 
  // calls functions
 	displayScores();
@@ -122,7 +123,7 @@ function draw() {
   goalWasTouched();
   resetScore();
   ballMoves();
-  //soccer;
+  soccer;
   player1Color();
   player2Color();
   loopObstacles();
@@ -136,6 +137,17 @@ function draw() {
  //rect(ball_xPos, ball_yPos, ballSize, ballSize);
 }
 
+//function restart() {
+//	if (ball_right >= canvasWidth) {
+	//	ball_xPos = 
+    //ball_yPos = 
+	//}
+
+	//if (ball_left <= 0) {
+		//ball_xPos =
+    //ball_yPos = 
+	//}
+}
 function displayImages() {
   var ballgif = document.getElementById("myImg").src;
   document.getElementById("myImg").innerHTML = ballgif;
@@ -161,16 +173,16 @@ function ballMoves(){
 function whoHitTheBall(){
 //checks if a player hit the ball
   if((ball_bottom >= player1_top) && (ball_top <=    player1_bottom)){
-		if(ball_left <=  player1_right){
+		if(ball_left <=  player1_right+10){
     		ball_xVel = -ball_xVel;
-    }else if (ball_left <=  player1_left){
+    }else if (ball_left <=  player1_left-10){
     		ball_xVel = -ball_xVel;
     }  
   }
   if((ball_bottom >= player2_top) && (ball_top <= player2_bottom)){
-		if(ball_right >=  player2_left){
+		if(ball_right >=  player2_left-10){
     		ball_xVel = -ball_xVel;
-    }else if (ball_right >=  player2_right){
+    }else if (ball_right >=  player2_right+10){
     		ball_xVel = -ball_xVel;
   }  
 }
